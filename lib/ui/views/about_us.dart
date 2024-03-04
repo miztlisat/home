@@ -75,7 +75,7 @@ class AboutUs extends ConsumerWidget {
                 ? Column(
                     children: [
                       Image.asset(
-                        'assets/galery/about_us.jpg',
+                        'assets/gallery/about_us.jpg',
                         height: 300,
                       ),
                       const InfoWhatDoWeDo(),
@@ -84,7 +84,7 @@ class AboutUs extends ConsumerWidget {
                 : Row(
                     children: [
                       Image.asset(
-                        'assets/galery/about_us.jpg',
+                        'assets/gallery/about_us.jpg',
                         height: 300,
                       ),
                       const Expanded(child: InfoWhatDoWeDo()),

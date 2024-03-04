@@ -19,7 +19,7 @@ class NextEventMiztli extends ConsumerWidget {
 
       decoration: const BoxDecoration(
         image: DecorationImage(
-          image: AssetImage("assets/galery/miztlisat_2023.png"),
+          image: AssetImage("assets/gallery/miztlisat_2023.png"),
           fit: BoxFit.cover,
           colorFilter: ColorFilter.mode(
             Color.fromARGB(255, 122, 119, 119),

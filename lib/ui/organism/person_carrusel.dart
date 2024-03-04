@@ -14,25 +14,40 @@ class PersonCarousel extends StatefulWidget {
 }
 
 class _PersonCarouselState extends State<PersonCarousel> {
-  ScrollController controller = ScrollController();
 
   late Timer timer;
+
+  final ScrollController controller = ScrollController();
 
   @override
   void initState() {
     super.initState();
-    timer = Timer.periodic(const Duration(seconds: 2), (Timer timer) {
+
+      // Esto se ejecutará después de que el widget haya sido construido
+      // y la vista de desplazamiento esté completamente cargada.
+
       // La acción que deseas realizar cada 2 segundos
-      controller.animateTo(controller.offset + 300,
-          duration: const Duration(milliseconds: 500), curve: Curves.linear);
-    });
-  } // Número total de elementos en la lista
+      timer = Timer.periodic(const Duration(seconds: 2), (Timer timer) {
+        controller.animateTo(controller.offset + 300,
+            duration: const Duration(milliseconds: 500), curve: Curves.linear);
+      });
+
+    // El resto de tu lógica de initState si es necesario.
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    timer.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 300,
       child: ListView.builder(
+        key: UniqueKey(),
         scrollDirection: Axis.horizontal,
         controller: controller,
         itemBuilder: (context, index) {

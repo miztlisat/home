@@ -47,3 +47,20 @@ final persons = [
     desciption: "C. COMPUTADORA DE VUELO",
   ),
 ];
+
+
+final galleryPictures = [
+  'assets/gallery/1.jpeg',
+  'assets/gallery/2.jpeg',
+  'assets/gallery/3.jpeg',
+  'assets/gallery/4.jpeg',
+  'assets/gallery/5.jpeg',
+  'assets/gallery/6.jpeg',
+  'assets/gallery/7.jpeg',
+  'assets/gallery/8.jpeg',
+  'assets/gallery/9.jpeg',
+  'assets/gallery/10.jpeg',
+  'assets/gallery/11.jpeg',
+  'assets/gallery/12.jpeg',
+
+];
