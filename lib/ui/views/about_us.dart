@@ -15,7 +15,7 @@ class AboutUs extends ConsumerWidget {
     final size = MediaQuery.of(context).size;
     final language = ref.watch(languageProvider);
     return SizedBox(
-      height: 1000,
+      //height: 1000,
       child: Column(
         children: [
           Container(
@@ -71,64 +71,81 @@ class AboutUs extends ConsumerWidget {
               horizontal: size.width > 780 ? size.width / 6 : 20,
               vertical: 50,
             ),
-            child: Row(
-              children: [
-                Image.asset(
-                  'assets/galery/about_us.jpg',
-                  height: 300,
-                ),
-                Expanded(
-                  child: Column(
+            child: size.aspectRatio < 1.3
+                ? Column(
                     children: [
-                      AnimatedSwitcher(
-                        duration: const Duration(milliseconds: 300),
-                        transitionBuilder:
-                            (Widget child, Animation<double> animation) {
-                          return FadeTransition(
-                            opacity: animation,
-                            child: child,
-                          );
-                        },
-                        child: Text(
-                          language == Languages.en
-                              ? settings.what_do_we_do_en
-                              : settings.what_do_we_do_es,
-                          key: UniqueKey(),
-                          style: GoogleFonts.outfit(
-                            fontSize: 30,
-                            color: Colors.black,
-                          ),
-                        ),
+                      Image.asset(
+                        'assets/galery/about_us.jpg',
+                        height: 300,
                       ),
-                      AnimatedSwitcher(
-                        duration: const Duration(milliseconds: 300),
-                        transitionBuilder:
-                            (Widget child, Animation<double> animation) {
-                          return FadeTransition(
-                            opacity: animation,
-                            child: child,
-                          );
-                        },
-                        child: Text(
-                          language == Languages.en
-                              ? settings.what_do_we_do_description_en
-                              : settings.what_do_we_do_description_es,
-                          //key: UniqueKey(),
-                          style: GoogleFonts.outfit(
-                            fontSize: 20,
-                            color: Colors.black,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
+                      const InfoWhatDoWeDo(),
+                    ],
+                  )
+                : Row(
+                    children: [
+                      Image.asset(
+                        'assets/galery/about_us.jpg',
+                        height: 300,
                       ),
+                      const Expanded(child: InfoWhatDoWeDo()),
                     ],
                   ),
-                ),
-              ],
-            ),
           ),
         ],
       ),
+    );
+  }
+}
+
+class InfoWhatDoWeDo extends ConsumerWidget {
+  const InfoWhatDoWeDo({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final language = ref.watch(languageProvider);
+
+    return Column(
+      children: [
+        AnimatedSwitcher(
+          duration: const Duration(milliseconds: 300),
+          transitionBuilder: (Widget child, Animation<double> animation) {
+            return FadeTransition(
+              opacity: animation,
+              child: child,
+            );
+          },
+          child: Text(
+            language == Languages.en
+                ? settings.what_do_we_do_en
+                : settings.what_do_we_do_es,
+            key: UniqueKey(),
+            style: GoogleFonts.outfit(
+              fontSize: 30,
+              color: Colors.black,
+            ),
+          ),
+        ),
+        AnimatedSwitcher(
+          duration: const Duration(milliseconds: 300),
+          transitionBuilder: (Widget child, Animation<double> animation) {
+            return FadeTransition(
+              opacity: animation,
+              child: child,
+            );
+          },
+          child: Text(
+            language == Languages.en
+                ? settings.what_do_we_do_description_en
+                : settings.what_do_we_do_description_es,
+            //key: UniqueKey(),
+            style: GoogleFonts.outfit(
+              fontSize: 20,
+              color: Colors.black,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ),
+      ],
     );
   }
 }

@@ -35,15 +35,15 @@ class _SplashState extends ConsumerState<Splash> {
           : Theme.of(context).scaffoldBackgroundColor,
       child: Stack(
         children: [
-          AnimatedContainer(
-            duration: const Duration(seconds: 1),
-            curve: Curves.easeInOut,
-            transform: _animationStarted
-                ? Matrix4.translationValues(
-                    0, -MediaQuery.of(context).size.height, 0)
-                : Matrix4.translationValues(0, 0, 0),
-            child: Align(
-              alignment: Alignment.bottomCenter,
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: AnimatedContainer(
+              duration: const Duration(seconds: 1),
+              curve: Curves.easeInOut,
+              transform: _animationStarted
+                  ? Matrix4.translationValues(
+                      -50, -MediaQuery.of(context).size.height, 0)
+                  : Matrix4.translationValues(-50, 0, 0),
               child: Container(
                 transform: Matrix4.rotationZ(-45 * 3.1415927 / 180),
                 child: Image.asset(

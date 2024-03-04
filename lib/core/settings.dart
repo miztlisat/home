@@ -4,14 +4,14 @@ class Settings {
   final String about_us_en = "About Us?";
   final String about_us_es = "¿Quiénes Somos?";
 
-  final String about_us_description_en = "Somos la división de Medicina Aeroespacial de la AAFI, un grupo multidisciplinario de estudiantes de diferentes áreas del conocimiento que centra su pasión y talento en las ciencias de la salud, la ingeniería y el espacio para desarrollar tecnología centrada en la Medicina Aeroespacial.";
-  final String about_us_description_es = "We are the Aerospace Medicine division of the AAFI, a multidisciplinary group of students from different areas of knowledge that focuses their passion and talent in health sciences, engineering and space to develop technology focused on Aerospace Medicine.";
+  final String about_us_description_en = "MiztliSat is a team focused on development and innovation within the aerospace sector, particularly in satellite technology. MiztliSat represents a group of students passionate about aerospace engineering, dedicated to the research, development, and application of satellite technologies. Our team is made up of students from various engineering disciplines, including mechanics, telecommunications, medicine, electronics, and programming, which allows us to approach complex projects with a comprehensive vision.";
+  final String about_us_description_es = "MiztliSat, es un equipo enfocado en el desarrollo y la innovación dentro del sector aeroespacial, particularmente en tecnología satelital. MiztliSat representa un colectivo de estudiantes apasionados por la ingeniería aeroespacial, dedicados a la investigación, desarrollo, y aplicación de tecnologías satelitales. Nuestro equipo está compuesto por estudiantes de diversas disciplinas de la ingeniería, incluyendo mecánica, telecomunicaciones, medicina, electrónica, y programación, lo que nos permite abordar proyectos complejos con una visión integral.";
 
   final String what_do_we_do_en = "What do we do?";
   final String what_do_we_do_es = "¿Qué hacemos?";
 
-  final String what_do_we_do_description_en = "We focus on the development of technology that supports the solution to the main health problems that astronauts experience during their stay on the International Space Station. We are also dedicated to the creation and dissemination of topics in Aerospace Medicine to make society know more about it, for this we participate in workshops, conferences, public events and publications on social networks.";
-  final String what_do_we_do_description_es = "Nos centramos en el desarrollo de tecnología que apoya en la solución a las principales problemáticas de salud que los astronautas llegan a presentar en su estancia en la Estación Espacial Internacional. También nos dedicamos a la creación y difusión de temas en Medicina Aeroespacial para dar a conocer en la sociedad más sobre ella, para ello participamos en talleres, conferencias, eventos públicos y publicaciones en redes sociales.";
+  final String what_do_we_do_description_en = "At MiztliSat, we are dedicated to the research, development and implementation of innovative satellite technologies, with a special focus on CubeSats and pico satellites. Our work covers all stages of the life cycle of a satellite, from conception and design to development, launch and competitive operation.";
+  final String what_do_we_do_description_es = "En MiztliSat, nos dedicamos a la investigación, desarrollo e implementación de tecnologías satelitales innovadoras, con un enfoque especial en CubeSats y pico satélites. Nuestro trabajo abarca todas las etapas del ciclo de vida de un satélite, desde la concepción y diseño hasta el desarrollo, lanzamiento y operación en competencias.";
 }
 
 final settings = Settings();
