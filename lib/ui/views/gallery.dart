@@ -11,8 +11,8 @@ class Gallery extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 150,
+      padding: EdgeInsets.symmetric(
+        horizontal: size.width < 1000 ? 10 : 150,
         vertical: 50,
       ),
       child: Column(

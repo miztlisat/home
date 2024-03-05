@@ -1,7 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:video_player/video_player.dart';
+import 'package:miztli/ui/providers/language_provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:miztli/ui/views/about_us.dart';
 import 'package:miztli/ui/views/gallery.dart';
@@ -23,7 +24,8 @@ class _HomePageState extends ConsumerState<HomePage> {
     const NextEventMiztli(),
     const AboutUs(),
     const Gallery(),
-    const PrevEventMiztli(),
+    //const PrevEventMiztli(),
+    ContactFotter(),
   ];
 
   final ItemScrollController _controller = ItemScrollController();
@@ -40,7 +42,87 @@ class _HomePageState extends ConsumerState<HomePage> {
   @override
   Widget build(BuildContext context) {
     final scrollController = ref.watch(scrollControllerProvider);
+    final language = ref.watch(languageProvider);
+
     return Scaffold(
+      endDrawer: Drawer(
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const Expanded(
+              flex: 4,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Flexible(
+                    flex: 1,
+                    child: AppBarButton(
+                      label_en: 'About Us',
+                      label_es: "Nosostros",
+                      index: 1,
+                    ),
+                  ),
+                  Flexible(
+                    flex: 1,
+                    child: AppBarButton(
+                      label_es: 'Galeria',
+                      label_en: "Gallery",
+                      index: 2,
+                    ),
+                  ),
+                  Flexible(
+                    flex: 1,
+                    child: AppBarButton(
+                      label_es: 'Donación',
+                      label_en: 'Donation',
+                      index: 3,
+                      url: 'https://donadora.org/campanas/unam-conquista-aeroespacial',
+                    ),
+                  ),
+                  Flexible(
+                    flex: 1,
+                    child: AppBarButton(
+                      label_es: "Contactanos",
+                      label_en: "Contact us",
+                      index: 4,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  const Flexible(
+                    flex: 1,
+                    child: ThemeButton(),
+                  ),
+                  IconButton(
+                    icon: Text(
+                      language == Languages.es ? "ES" : "EN",
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.onPrimary,
+                      ),
+                    ),
+                    onPressed: () {
+                      if (language == Languages.es) {
+                        ref.read(languageProvider.notifier).state =
+                            Languages.en;
+                      } else {
+                        ref.read(languageProvider.notifier).state =
+                            Languages.es;
+                      }
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
       body: ScrollablePositionedList.builder(
         itemScrollController: _controller,
         shrinkWrap: true,
@@ -75,7 +157,7 @@ class _HomePageState extends ConsumerState<HomePage> {
     );
   }
 }
-
+/*
 class PrevEventMiztli extends StatefulWidget {
   const PrevEventMiztli({super.key});
 
@@ -89,8 +171,8 @@ class _PrevEventMiztliState extends State<PrevEventMiztli> {
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.asset(
-      'assets/2020.mp4',
+    _controller = VideoPlayerController.networkUrl(
+      Uri.parse('https://github.com/miztlisat/home/raw/main/assets/2020.mp4'),
     )..initialize().then((_) {
         // Garantiza que el primer fotograma se muestre después de que el video se haya inicializado.
         setState(() {
@@ -139,11 +221,115 @@ class _PrevEventMiztliState extends State<PrevEventMiztli> {
                       aspectRatio: _controller.value.aspectRatio,
                       child: VideoPlayer(_controller),
                     )
-                  : CircularProgressIndicator(),
+                  : const CircularProgressIndicator(),
             ),
           ],
         ),
       ),
     );
+  }
+}
+*/
+class ContactFotter extends StatelessWidget {
+  final String whatsappNumber = '+1234567890'; // Número de WhatsApp
+
+  // URLs de las redes sociales
+  final String facebookUrl = 'https://www.facebook.com/tu_facebook';
+  final String twitterUrl = 'https://twitter.com/tu_twitter';
+  final String instagramUrl = 'https://www.instagram.com/tu_instagram';
+
+  // Método para abrir URLs en el navegador
+  void _launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'No se pudo abrir la URL: $url';
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Theme.of(context).scaffoldBackgroundColor,
+      padding: const EdgeInsets.all(10.0),
+      height: MediaQuery.of(context).size.height / 3,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          SelectableText(
+            "Número: 55-24-82-83-81 ",
+            style: TextStyle(
+              fontSize: 25,
+              color: Theme.of(context).colorScheme.onPrimary,
+            ),
+          ),
+          SelectableText(
+            "Número: 56-10-93-61-16 ",
+            style: TextStyle(
+              fontSize: 25,
+              color: Theme.of(context).colorScheme.onPrimary,
+            ),
+          ),
+          const Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ContactButton(
+                img: 'assets/facebook_icon.png',
+                url: 'https://www.facebook.com/MiztliSatAAFI/',
+              ),
+              ContactButton(
+                img: 'assets/instagram_icon.png',
+                url: 'https://www.instagram.com/miztlisat_aafi/',
+              ),
+              ContactButton(
+                img: 'assets/x_icon.png',
+                url: 'https://twitter.com/miztlisat',
+              ),
+              ContactButton(
+                img: 'assets/tiktok_icon.png',
+                url: 'https://twitter.com/miztlisat',
+              ),
+            ],
+          ),
+          Text(
+            '© 2020-2024 Miztli', // Reemplaza con tu propio texto de copyright
+            style: TextStyle(
+              fontSize: 25,
+              color: Theme.of(context).colorScheme.onPrimary,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class ContactButton extends StatelessWidget {
+  const ContactButton({
+    super.key,
+    required this.img,
+    this.url = '',
+  });
+
+  final String img;
+  final String url;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      child: Image.asset(
+        img,
+        height: 45,
+      ),
+      onTap: () {
+        _externalLaunchUrl();
+      },
+    );
+  }
+
+  Future<void> _externalLaunchUrl() async {
+    if (!await launchUrl(Uri.parse(url))) {
+      throw Exception('Could not launch $url');
+    }
   }
 }

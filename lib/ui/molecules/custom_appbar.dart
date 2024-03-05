@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:miztli/ui/providers/language_provider.dart';
 import 'package:miztli/ui/providers/scroll_controller.dart';
 import 'package:miztli/ui/providers/theme_provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CustomAppBar extends ConsumerWidget {
   const CustomAppBar({
@@ -106,24 +107,25 @@ class CustomAppBar extends ConsumerWidget {
                             const Flexible(
                               flex: 1,
                               child: AppBarButton(
-                                label_en: 'Galeria',
-                                label_es: "Gallery",
+                                label_es: 'Galeria',
+                                label_en: "Gallery",
                                 index: 2,
                               ),
                             ),
                             const Flexible(
                               flex: 1,
                               child: AppBarButton(
-                                label_en: 'Donación',
-                                label_es: 'Donation',
+                                label_es: 'Donación',
+                                label_en: 'Donation',
                                 index: 3,
+                                url: 'https://donadora.org/campanas/unam-conquista-aeroespacial',
                               ),
                             ),
                             const Flexible(
                               flex: 1,
                               child: AppBarButton(
-                                label_en: "Contactanos",
-                                label_es: "Contact us",
+                                label_es: "Contactanos",
+                                label_en: "Contact us",
                                 index: 4,
                               ),
                             ),
@@ -161,8 +163,9 @@ class CustomAppBar extends ConsumerWidget {
                           onPressed: () {
                             Scaffold.of(context).openEndDrawer();
                           },
-                          icon: const Icon(
+                          icon: Icon(
                             Icons.menu,
+                            color: Theme.of(context).colorScheme.onPrimary,
                           ),
                         ),
                         const SizedBox(
@@ -209,11 +212,13 @@ class AppBarButton extends ConsumerStatefulWidget {
     required this.label_es,
     required this.label_en,
     this.index = 0,
+    this.url = '',
   });
 
   final String label_en;
   final String label_es;
   final int index;
+  final String url;
 
   @override
   ConsumerState<AppBarButton> createState() => _AppBarButtonState();
@@ -230,6 +235,12 @@ class _AppBarButtonState extends ConsumerState<AppBarButton> {
     return const Color.fromARGB(255, 192, 193, 195);
   }
 
+  Future<void> _externalLaunchUrl() async {
+    if (!await launchUrl(Uri.parse(widget.url))) {
+      throw Exception('Could not launch $widget.url');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final scrollController = ref.watch(scrollControllerProvider);
@@ -240,10 +251,14 @@ class _AppBarButtonState extends ConsumerState<AppBarButton> {
           if (Scaffold.of(context).isEndDrawerOpen) {
             Navigator.pop(context);
           }
-          scrollController.scrollTo(
-            index: widget.index,
-            duration: const Duration(milliseconds: 500),
-          );
+          if (widget.url != '') {
+            _externalLaunchUrl();
+          } else {
+            scrollController.scrollTo(
+              index: widget.index,
+              duration: const Duration(milliseconds: 500),
+            );
+          }
         },
         child: Container(
           decoration: BoxDecoration(
@@ -255,15 +270,16 @@ class _AppBarButtonState extends ConsumerState<AppBarButton> {
             duration: const Duration(milliseconds: 300),
             transitionBuilder: (Widget child, Animation<double> animation) {
               return SlideTransition(
-                  position: Tween<Offset>(
-                    begin: const Offset(0.2, 0), // Abajo
-                    end: const Offset(0, 0), // Arriba
-                  ).animate(animation),
-                  child: child,
-                );
+                position: Tween<Offset>(
+                  begin: const Offset(0.2, 0), // Abajo
+                  end: const Offset(0, 0), // Arriba
+                ).animate(animation),
+                child: child,
+              );
             },
             child: Text(
               language == Languages.en ? widget.label_en : widget.label_es,
+
               ///key: UniqueKey(),
               style: TextStyle(
                 color: Theme.of(context).colorScheme.onPrimary,
